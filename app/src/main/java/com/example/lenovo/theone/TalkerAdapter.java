@@ -22,11 +22,24 @@ public class TalkerAdapter extends ArrayAdapter<Talker>{
     }
     public View getView(int position, View convertView, ViewGroup parent){
         Talker talker = getItem(position);
-        View view = LayoutInflater.from(getContext()).inflate(resourceId, parent, false);
-        ImageView talkerImage = (ImageView) view.findViewById(R.id.talker_image);
-        TextView talkerName = (TextView) view.findViewById(R.id.talker_name);
-        talkerImage.setImageResource(talker.getImageId());
-        talkerName.setText(talker.getName());
+        View view;
+        ViewHolder viewHolder;
+        if (convertView == null){
+            view = LayoutInflater.from(getContext()).inflate(resourceId, parent, false);
+            viewHolder = new ViewHolder();
+            viewHolder.talkerImage = (ImageView) view.findViewById(R.id.talker_image);
+            viewHolder.talkerName = (TextView) view.findViewById(R.id.talker_name);
+            view.setTag(viewHolder);
+        }else {
+            view = convertView;
+            viewHolder = (ViewHolder) view.getTag();
+        }
+        viewHolder.talkerName.setText(talker.getName());
+        viewHolder.talkerImage.setImageResource(talker.getImageId());
         return view;
+    }
+    class ViewHolder{
+        ImageView talkerImage;
+        TextView talkerName;
     }
 }

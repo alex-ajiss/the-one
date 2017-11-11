@@ -18,23 +18,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.talk);
-        //3.4.1
-//        ActionBar actionBar = getSupportActionBar();
-//        if(actionBar!=null){
-//            actionBar.hide();
-//        }
-        //12.2
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
         initTalkers();
         TalkerAdapter adapter = new TalkerAdapter(MainActivity.this, R.layout.talker_item, talkerList);
         ListView listView = (ListView)findViewById(R.id.list_view);
         listView.setAdapter(adapter);
     }
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.toolbar, menu);
-        return true;
-    }
+
 
 
     private void initTalkers() {
