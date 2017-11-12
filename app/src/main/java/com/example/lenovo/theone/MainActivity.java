@@ -1,32 +1,79 @@
 package com.example.lenovo.theone;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private List<Talker> talkerList = new ArrayList<>();
+    private DrawerLayout mDrawerLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.talk);
+        //toolbar设定
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        //设置导航按钮
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar!=null){
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        }
 
         initTalkers();
         TalkerAdapter adapter = new TalkerAdapter(MainActivity.this, R.layout.talker_item, talkerList);
         ListView listView = (ListView)findViewById(R.id.list_view);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Talker talker = talkerList.get(position);
+                Intent talkerIntent = new Intent(MainActivity.this,Chat.class);
+                startActivity(talkerIntent);
+
+            }
+        });
+        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab_add);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent addIntent = new Intent(MainActivity.this,AddFriend.class);
+                startActivity(addIntent);
+            }
+        });
+
+
+
     }
-
-
-
+    //在导航栏添加导航图标
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.toolbar,menu);
+        return true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item){
+        if(item.getItemId()==android.R.id.home){
+            mDrawerLayout.openDrawer(GravityCompat.START);
+        }
+        return true;
+    }
     private void initTalkers() {
         for (int i = 0; i<2 ; i++){
             Talker alex = new Talker("Alex",R.mipmap.a);

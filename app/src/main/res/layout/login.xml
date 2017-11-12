@@ -54,7 +54,8 @@
                 android:layout_weight="1"
 
                 android:background="#00000000"
-                android:text="forget password" />
+                android:text="forget password"
+                android:textColor="?attr/colorControlNormal" />
 
             <Button
                 android:id="@+id/btn_create"
@@ -62,7 +63,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="#00000000"
-                android:text="create my account" />
+                android:text="create my account"
+                android:textColor="?attr/colorControlNormal" />
         </LinearLayout>
 
 

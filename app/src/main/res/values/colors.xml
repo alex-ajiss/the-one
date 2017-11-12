@@ -7,5 +7,5 @@
     <color name="primary_material_light">#668863</color>
     <color name="accent_material_light">#2b88d8</color>
     <color name="primary_text_material_light">#f8fdfdfd</color>
-    <color name="primary_text_material_light_1">#fefcfc</color>
+    <color name="primary_text_material_light_1">#00fefcfc</color>
 </resources>
