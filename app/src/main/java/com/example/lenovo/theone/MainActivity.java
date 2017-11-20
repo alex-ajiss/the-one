@@ -1,7 +1,10 @@
 package com.example.lenovo.theone;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -20,6 +23,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.support.design.widget.NavigationView.*;
+
 public class MainActivity extends AppCompatActivity {
     private List<Talker> talkerList = new ArrayList<>();
     private DrawerLayout mDrawerLayout;
@@ -32,12 +37,25 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         //设置导航按钮
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        //导航栏滑动效果添加
+        NavigationView navView = (NavigationView)findViewById(R.id.nav_view);
+
         ActionBar actionBar = getSupportActionBar();
         if(actionBar!=null){
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_topmenu);
         }
 
+        //滑动导航栏
+        navView.setCheckedItem(R.id.nav_call);
+        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+               mDrawerLayout.closeDrawers();
+                return true;
+            }
+
+        });
         initTalkers();
         TalkerAdapter adapter = new TalkerAdapter(MainActivity.this, R.layout.talker_item, talkerList);
         ListView listView = (ListView)findViewById(R.id.list_view);
