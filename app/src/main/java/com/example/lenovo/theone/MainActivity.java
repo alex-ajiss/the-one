@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //滑动导航栏
-        navView.setCheckedItem(R.id.nav_call);
+        navView.setCheckedItem(R.id.nav_location);
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
